@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Konnex Farmer</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 360px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #0f0f0f;
+    color: #e8e8e8;
+    padding: 16px;
+  }
+  .logo {
+    font-size: 16px;
+    font-weight: 600;
+    color: #00c9a7;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: #00c9a7; animation: blink 2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .section {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  label { font-size: 12px; color: #999; display: block; margin-bottom: 4px; }
+  input, select, textarea {
+    width: 100%;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 8px 10px;
+    color: #e8e8e8;
+    font-size: 12px;
+    margin-bottom: 10px;
+    font-family: monospace;
+    outline: none;
+  }
+  input:focus, select:focus, textarea:focus { border-color: #00c9a7; }
+  textarea { resize: vertical; min-height: 70px; font-family: -apple-system, sans-serif; font-size: 12px; line-height: 1.5; }
+  .btn {
+    width: 100%;
+    padding: 11px;
+    border-radius: 8px;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 8px;
+  }
+  .btn:hover { opacity: 0.85; transform: translateY(-1px); }
+  .btn:active { transform: scale(0.98); }
+  .btn-start { background: #00c9a7; color: #000; font-size: 15px; padding: 13px; }
+  .btn-twitter { background: #1d9bf0; color: #fff; }
+  .btn-secondary { background: #2a2a2a; color: #e8e8e8; }
+  .btn-secondary:last-child { margin-bottom: 0; }
+  .status-box {
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 11px;
+    color: #666;
+    min-height: 70px;
+    max-height: 120px;
+    overflow-y: auto;
+    font-family: monospace;
+    line-height: 1.6;
+  }
+  .status-line { color: #00c9a7; }
+  .status-err { color: #ff6b6b; }
+  .status-info { color: #999; }
+  .points-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #999;
+    padding: 3px 0;
+  }
+  .points-val { color: #00c9a7; font-weight: 600; }
+  .char-count { font-size: 10px; color: #555; text-align: right; margin-top: -8px; margin-bottom: 8px; }
+  .hint { font-size: 10px; color: #555; margin-bottom: 8px; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<div class="logo">
+  <div class="logo-dot"></div>
+  Konnex Farmer
+</div>
+
+<div class="section">
+  <div class="section-title">Настройки</div>
+  <label>Кошелёк (MetaMask)</label>
+  <input type="text" id="wallet" placeholder="0x..." />
+  <label>Email</label>
+  <input type="email" id="email" placeholder="your@email.com" />
+  <label>Рейтинг для видео</label>
+  <select id="rating">
+    <option value="4">4 звезды (рекомендуется)</option>
+    <option value="5">5 звезд</option>
+    <option value="3">3 звезды</option>
+  </select>
+  <button class="btn btn-secondary" id="save-btn">💾 Сохранить настройки</button>
+</div>
+
+<div class="section">
+  <div class="section-title">Задания</div>
+  <div class="points-row"><span>🤖 Train Robots</span><span class="points-val">+50 pts</span></div>
+  <div class="points-row" style="margin-bottom:12px"><span>𝕏 Post about Konnex</span><span class="points-val">+15 pts</span></div>
+  <button class="btn btn-start" id="start-btn">▶ ПУСК — выполнить всё</button>
+</div>
+
+<div class="section">
+  <div class="section-title">Twitter задание</div>
+  <div class="hint">Напиши текст твита ниже (или оставь пустым — подставится авто). Скрипт сам опубликует, скопирует ссылку и отправит на проверку.</div>
+  <label>Текст твита</label>
+  <textarea id="tweet-text" placeholder="Напиши свой текст или оставь пустым для авто..."></textarea>
+  <div class="char-count"><span id="char-count">0</span>/280</div>
+  <button class="btn btn-twitter" id="twitter-btn">𝕏 Опубликовать и отправить на проверку</button>
+</div>
+
+<div class="section">
+  <div class="section-title">Лог</div>
+  <div class="status-box" id="log">
+    <div class="status-info">Готов к работе...</div>
+  </div>
+</div>
+
+<script src="popup.js"></script>
+</body>
+</html>

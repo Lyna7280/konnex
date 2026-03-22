@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "Konnex Auto Farmer",
+  "version": "1.2",
+  "description": "Автоматизация заданий на hub.konnex.world и testnet.konnex.world",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://hub.konnex.world/*",
+    "https://testnet.konnex.world/*",
+    "https://twitter.com/*",
+    "https://x.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://hub.konnex.world/*"],
+      "js": ["content_konnex.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://testnet.konnex.world/*"],
+      "js": ["content_testnet.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://twitter.com/*", "https://x.com/*"],
+      "js": ["content_twitter.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
