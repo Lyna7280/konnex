@@ -1,4 +1,27 @@
 const logEl = document.getElementById('log');
+const GITHUB_URL = 'https://lyna7280.github.io/konnex';
+
+// Проверка обновлений
+document.addEventListener('DOMContentLoaded', () => {
+  const updateBtn = document.getElementById('update-btn');
+  if (updateBtn) {
+    updateBtn.addEventListener('click', async () => {
+      log('Проверяю обновления...', 'info');
+      try {
+        const res = await fetch(GITHUB_URL + '/manifest.json?t=' + Date.now());
+        const remote = await res.json();
+        const local = chrome.runtime.getManifest();
+        if (remote.version !== local.version) {
+          log('Доступна v' + remote.version + '! Скачай новый ZIP', 'ok');
+        } else {
+          log('У тебя последняя версия v' + local.version + ' ✓', 'ok');
+        }
+      } catch(e) {
+        log('GitHub Pages ещё разворачивается, подожди 5 мин', 'info');
+      }
+    });
+  }
+});
 
 function log(msg, type = 'info') {
   const div = document.createElement('div');

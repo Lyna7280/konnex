@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Konnex Auto Farmer",
-  "version": "1.2",
+  "version": "1.3",
   "description": "Автоматизация заданий на hub.konnex.world и testnet.konnex.world",
   "permissions": [
     "activeTab",
